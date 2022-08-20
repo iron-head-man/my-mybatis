@@ -2,9 +2,9 @@ package com.xiaoxing.mybatis01.test.dao;
 
 import com.xiaoxing.mybatis01.binding.MapperProxyFactory;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
 
 
 import java.util.HashMap;
