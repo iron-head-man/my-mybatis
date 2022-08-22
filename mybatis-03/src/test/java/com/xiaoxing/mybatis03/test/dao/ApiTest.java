@@ -1,11 +1,12 @@
-package com.xiaoxing.mybatis02.test.dao;
+package com.xiaoxing.mybatis03.test.dao;
 
 
-import com.xiaoxing.mybatis02.binding.MapperRegistry;
-import com.xiaoxing.mybatis02.session.SqlSession;
-import com.xiaoxing.mybatis02.session.SqlSessionFactory;
-import com.xiaoxing.mybatis02.session.defaults.DefaultSqlSession;
-import com.xiaoxing.mybatis02.session.defaults.DefaultSqlSessionFactory;
+import com.xiaoxing.mybatis03.binding.MapperRegistry;
+import com.xiaoxing.mybatis03.session.Configuration;
+import com.xiaoxing.mybatis03.session.SqlSession;
+import com.xiaoxing.mybatis03.session.SqlSessionFactory;
+import com.xiaoxing.mybatis03.session.defaults.DefaultSqlSession;
+import com.xiaoxing.mybatis03.session.defaults.DefaultSqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -27,8 +28,8 @@ public class ApiTest {
 //        MapperProxyFactory<IUserDao> factory = new MapperProxyFactory<>(IUserDao.class);
 //        HashMap<String, String> sqlSession = new HashMap<>();
 //
-//        sqlSession.put("com.xiaoxing.mybatis02.test.dao.IUserDao.queryUserName", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户姓名");
-//        sqlSession.put("com.xiaoxing.mybatis02.test.dao.IUserDao.queryUserAge", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户年龄");
+//        sqlSession.put("com.xiaoxing.mybatis03.test.dao.IUserDao.queryUserName", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户姓名");
+//        sqlSession.put("com.xiaoxing.mybatis03.test.dao.IUserDao.queryUserAge", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户年龄");
 //
 //        IUserDao userDao = factory.newInstance(sqlSession);
 //
@@ -40,9 +41,10 @@ public class ApiTest {
 
     @Test
     public void test_MapperProxyFactory() {
+        Configuration configuration = new Configuration();
         //1.注册mapper
-        MapperRegistry mapperRegistry = new MapperRegistry();
-        mapperRegistry.addMappers("com.xiaoxing.mybatis02.test.dao");
+        MapperRegistry mapperRegistry = new MapperRegistry(configuration);
+        mapperRegistry.addMappers("com.xiaoxing.mybatis03.test.dao");
 
         //2.从sqlSession工厂获取sqlSeSSION
         DefaultSqlSessionFactory defaultSqlSessionFactory = new DefaultSqlSessionFactory(mapperRegistry);
