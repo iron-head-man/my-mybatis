@@ -1,6 +1,6 @@
 package com.xiaoxing.mybatis03.session.defaults;
 
-import com.xiaoxing.mybatis03.binding.MapperRegistry;
+import com.xiaoxing.mybatis03.session.Configuration;
 import com.xiaoxing.mybatis03.session.SqlSession;
 import com.xiaoxing.mybatis03.session.SqlSessionFactory;
 
@@ -13,14 +13,16 @@ import com.xiaoxing.mybatis03.session.SqlSessionFactory;
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
-    private final MapperRegistry mapperRegistry;
 
-    public DefaultSqlSessionFactory(MapperRegistry mapperRegistry) {
-        this.mapperRegistry = mapperRegistry;
+    private final Configuration configuration;
+
+    public DefaultSqlSessionFactory(Configuration configuration) {
+        this.configuration = configuration;
     }
 
+
     @Override
-    public SqlSession openSqlSession() {
-        return new DefaultSqlSession(mapperRegistry);
+    public SqlSession openSession() {
+        return new DefaultSqlSession(configuration);
     }
 }
