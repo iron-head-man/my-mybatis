@@ -28,8 +28,11 @@ public class ApiTest {
     @Test
     public void test_SqlSessionFactory() throws IOException {
         // 1. 从SqlSessionFactory中获取SqlSession
+        // 1.1加载资源文件，获取io流
         Reader reader = Resources.getResourceAsReader("mybatis-config-datasource.xml");
+        // 1.2根据io流，构建sqlSessionFactory---带configuration，mapper文件中的sql语句已经注册在configuration的map中，mapper也注册在configuration中
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        // 1.3 打开一个sqlSession,带configuration
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 2. 获取映射器对象
