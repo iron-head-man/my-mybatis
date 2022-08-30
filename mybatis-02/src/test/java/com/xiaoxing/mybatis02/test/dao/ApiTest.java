@@ -3,12 +3,11 @@ package com.xiaoxing.mybatis02.test.dao;
 
 import com.xiaoxing.mybatis02.binding.MapperRegistry;
 import com.xiaoxing.mybatis02.session.SqlSession;
-import com.xiaoxing.mybatis02.session.SqlSessionFactory;
-import com.xiaoxing.mybatis02.session.defaults.DefaultSqlSession;
 import com.xiaoxing.mybatis02.session.defaults.DefaultSqlSessionFactory;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
+
 
 /**
  * <p>
