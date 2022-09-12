@@ -3,6 +3,7 @@ package com.xiaoxing.mybatis04.builder.xml;
 import com.xiaoxing.mybatis04.builder.BaseBuilder;
 import com.xiaoxing.mybatis04.datasource.DataSourceFactory;
 import com.xiaoxing.mybatis04.io.Resources;
+import com.xiaoxing.mybatis04.mapping.BoundSql;
 import com.xiaoxing.mybatis04.mapping.Environment;
 import com.xiaoxing.mybatis04.mapping.MappedStatement;
 import com.xiaoxing.mybatis04.mapping.SqlCommandType;
@@ -115,6 +116,7 @@ public class XMLConfigBuilder extends BaseBuilder {
             // SELECT
             List<Element> selectNodes = root.elements("select");
             for (Element node : selectNodes) {
+                
                 String id = node.attributeValue("id");
                 String parameterType = node.attributeValue("parameterType");
                 String resultType = node.attributeValue("resultType");
@@ -135,7 +137,7 @@ public class XMLConfigBuilder extends BaseBuilder {
                 String nodeName = node.getName();
                 SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
                 MappedStatement mappedStatement = new MappedStatement.Builder(configuration, msId, sqlCommandType,
-                                parameterType, resultType, sql, parameter).build();
+                                new BoundSql(sql, parameter, parameterType, resultType )).build();
                 // 添加解析 SQL
                 configuration.addMappedStatement(mappedStatement);
             }

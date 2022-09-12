@@ -1,5 +1,7 @@
 package com.xiaoxing.mybatis04.test.dao;
 
+import com.xiaoxing.mybatis04.test.po.User;
+
 /**
  * <p>
  *
@@ -9,6 +11,6 @@ package com.xiaoxing.mybatis04.test.dao;
  */
 public interface IUserDao {
 
-    String queryUserInfoById(String uId);
+    User queryUserInfoById(Long uId);
 
 }

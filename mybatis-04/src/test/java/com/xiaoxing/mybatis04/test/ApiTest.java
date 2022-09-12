@@ -1,17 +1,20 @@
 package com.xiaoxing.mybatis04.test;
 
 
+import java.io.IOException;
+import java.io.Reader;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSON;
 import com.xiaoxing.mybatis04.io.Resources;
 import com.xiaoxing.mybatis04.session.SqlSession;
 import com.xiaoxing.mybatis04.session.SqlSessionFactory;
 import com.xiaoxing.mybatis04.session.SqlSessionFactoryBuilder;
 import com.xiaoxing.mybatis04.test.dao.IUserDao;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.Reader;
+import com.xiaoxing.mybatis04.test.po.User;
 
 /**
  * <p>
@@ -24,6 +27,21 @@ public class ApiTest {
 
 
     private Logger logger = LoggerFactory.getLogger(ApiTest.class);
+
+    @Test
+    public void test_SqlSessionFactory1() throws IOException {
+        // 1. 从SqlSessionFactory中获取SqlSession
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        // 2. 获取映射器对象
+        IUserDao userDao = sqlSession.getMapper(IUserDao.class);
+
+        // 3. 测试验证
+        User user = userDao.queryUserInfoById(1L);
+        logger.info("测试结果：{}", JSON.toJSONString(user));
+    }
+
 
     @Test
     public void test_SqlSessionFactory() throws IOException {
@@ -39,7 +57,7 @@ public class ApiTest {
         IUserDao userDao = sqlSession.getMapper(IUserDao.class);
 
         // 3. 测试验证
-        String res = userDao.queryUserInfoById("10001");
+        User res = userDao.queryUserInfoById(10001L);
         logger.info("测试结果：{}", res);
     }
 //    @Test

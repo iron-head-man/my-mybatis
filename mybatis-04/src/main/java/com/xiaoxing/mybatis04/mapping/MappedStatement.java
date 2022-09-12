@@ -2,8 +2,6 @@ package com.xiaoxing.mybatis04.mapping;
 
 import com.xiaoxing.mybatis04.session.Configuration;
 
-import java.util.Map;
-
 /**
  * <p>
  *
@@ -13,20 +11,14 @@ import java.util.Map;
  */
 public class MappedStatement {
 
-    //配置
+    // 配置
     private Configuration configuration;
 
     private String id;
 
     private SqlCommandType sqlCommandType;
 
-    private String parameterType;
-
-    private String resultType;
-
-    private String sql;
-
-    private Map<Integer, String> parameter;
+    private BoundSql boundSql;
 
     MappedStatement() {
         // constructor disabled
@@ -39,14 +31,11 @@ public class MappedStatement {
 
         private MappedStatement mappedStatement = new MappedStatement();
 
-        public Builder(Configuration configuration, String id, SqlCommandType sqlCommandType, String parameterType, String resultType, String sql, Map<Integer, String> parameter) {
+        public Builder(Configuration configuration, String id, SqlCommandType sqlCommandType, BoundSql boundSql) {
             mappedStatement.configuration = configuration;
             mappedStatement.id = id;
             mappedStatement.sqlCommandType = sqlCommandType;
-            mappedStatement.parameterType = parameterType;
-            mappedStatement.resultType = resultType;
-            mappedStatement.sql = sql;
-            mappedStatement.parameter = parameter;
+            mappedStatement.boundSql = boundSql;
         }
 
         public MappedStatement build() {
@@ -84,39 +73,12 @@ public class MappedStatement {
         return this;
     }
 
-    public String getParameterType() {
-        return parameterType;
+    public BoundSql getBoundSql() {
+        return boundSql;
     }
 
-    public MappedStatement setParameterType(String parameterType) {
-        this.parameterType = parameterType;
-        return this;
-    }
-
-    public String getResultType() {
-        return resultType;
-    }
-
-    public MappedStatement setResultType(String resultType) {
-        this.resultType = resultType;
-        return this;
-    }
-
-    public String getSql() {
-        return sql;
-    }
-
-    public MappedStatement setSql(String sql) {
-        this.sql = sql;
-        return this;
-    }
-
-    public Map<Integer, String> getParameter() {
-        return parameter;
-    }
-
-    public MappedStatement setParameter(Map<Integer, String> parameter) {
-        this.parameter = parameter;
+    public MappedStatement setBoundSql(BoundSql boundSql) {
+        this.boundSql = boundSql;
         return this;
     }
 }
