@@ -1,14 +1,16 @@
 package com.xiaoxing.mybatis05.session;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.xiaoxing.mybatis05.binding.MapperRegistry;
 import com.xiaoxing.mybatis05.datasource.druid.DruidDataSourceFactory;
+import com.xiaoxing.mybatis05.datasource.pooled.PooledDataSourceFactory;
+import com.xiaoxing.mybatis05.datasource.unpooled.UnpooledDataSourceFactory;
 import com.xiaoxing.mybatis05.mapping.Environment;
 import com.xiaoxing.mybatis05.mapping.MappedStatement;
 import com.xiaoxing.mybatis05.transaction.jdbc.JdbcTransactionFactory;
 import com.xiaoxing.mybatis05.type.TypeAliasRegistry;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
@@ -38,6 +40,8 @@ public class Configuration {
     public Configuration() {
         typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
         typeAliasRegistry.registerAlias("DRUID", DruidDataSourceFactory.class);
+        typeAliasRegistry.registerAlias("UNPOOLED", UnpooledDataSourceFactory.class);
+        typeAliasRegistry.registerAlias("POOLED", PooledDataSourceFactory.class);
     }
 
     public void addMappers(String packageName) {
