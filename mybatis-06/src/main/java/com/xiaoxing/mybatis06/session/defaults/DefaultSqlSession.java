@@ -47,7 +47,7 @@ public class DefaultSqlSession implements SqlSession {
             PreparedStatement preparedStatement = connection.prepareStatement(boundSql.getSql());
             preparedStatement.setLong(1, Long.parseLong(((Object[]) parameter)[0].toString()));
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            // 封装结果
             List<T> objList = resultSet2Obj(resultSet, Class.forName(boundSql.getResultType()));
             return objList.get(0);
         } catch (Exception e) {
