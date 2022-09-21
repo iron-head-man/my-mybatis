@@ -7,8 +7,16 @@ import com.xiaoxing.mybatis06.binding.MapperRegistry;
 import com.xiaoxing.mybatis06.datasource.druid.DruidDataSourceFactory;
 import com.xiaoxing.mybatis06.datasource.pooled.PooledDataSourceFactory;
 import com.xiaoxing.mybatis06.datasource.unpooled.UnpooledDataSourceFactory;
+import com.xiaoxing.mybatis06.executor.Executor;
+import com.xiaoxing.mybatis06.executor.SimpleExecutor;
+import com.xiaoxing.mybatis06.executor.resultset.DefaultResultSetHandler;
+import com.xiaoxing.mybatis06.executor.resultset.ResultSetHandler;
+import com.xiaoxing.mybatis06.executor.statement.PreparedStatementHandler;
+import com.xiaoxing.mybatis06.executor.statement.StatementHandler;
+import com.xiaoxing.mybatis06.mapping.BoundSql;
 import com.xiaoxing.mybatis06.mapping.Environment;
 import com.xiaoxing.mybatis06.mapping.MappedStatement;
+import com.xiaoxing.mybatis06.transaction.Transaction;
 import com.xiaoxing.mybatis06.transaction.jdbc.JdbcTransactionFactory;
 import com.xiaoxing.mybatis06.type.TypeAliasRegistry;
 
@@ -21,7 +29,7 @@ import com.xiaoxing.mybatis06.type.TypeAliasRegistry;
  */
 public class Configuration {
 
-    //环境
+    // 环境
     protected Environment environment;
 
     /**
@@ -87,5 +95,28 @@ public class Configuration {
 
     public TypeAliasRegistry getTypeAliasRegistry() {
         return typeAliasRegistry;
+    }
+
+
+    /**
+     * 创建结果集处理器
+     */
+    public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, BoundSql boundSql) {
+        return new DefaultResultSetHandler(executor,mappedStatement,boundSql);
+    }
+
+    /**
+     * 创建语句处理器
+     */
+    public StatementHandler newStatementHandler(SimpleExecutor simpleExecutor, MappedStatement ms, Object parameter,
+                    ResultHandler resultHandler, BoundSql boundSql) {
+        return new PreparedStatementHandler(simpleExecutor, ms, parameter, resultHandler, boundSql);
+    }
+
+    /**
+     * 生产执行器
+     */
+    public Executor newExecutor(Transaction tx) {
+        return new SimpleExecutor(this, tx);
     }
 }

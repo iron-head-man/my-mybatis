@@ -1,8 +1,15 @@
 package com.xiaoxing.mybatis06.session.defaults;
 
+import com.xiaoxing.mybatis06.executor.Executor;
+import com.xiaoxing.mybatis06.mapping.Environment;
 import com.xiaoxing.mybatis06.session.Configuration;
 import com.xiaoxing.mybatis06.session.SqlSession;
 import com.xiaoxing.mybatis06.session.SqlSessionFactory;
+import com.xiaoxing.mybatis06.session.TransactionIsolationLevel;
+import com.xiaoxing.mybatis06.transaction.Transaction;
+import com.xiaoxing.mybatis06.transaction.TransactionFactory;
+
+import java.sql.SQLException;
 
 /**
  * <p>
@@ -23,6 +30,23 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
     @Override
     public SqlSession openSession() {
-        return new DefaultSqlSession(configuration);
+
+        Transaction tx = null;
+        try {
+            final Environment environment = configuration.getEnvironment();
+            TransactionFactory transactionFactory = environment.getTransactionFactory();
+            tx = transactionFactory.newTransaction(environment.getDataSource(),
+                            TransactionIsolationLevel.READ_COMMITTED, false);
+            // 创建执行器
+            final Executor executor = configuration.newExecutor(tx);
+            return new DefaultSqlSession(configuration, executor);
+        } catch (Exception e) {
+            try {
+                assert tx != null;
+                tx.close();
+            } catch (SQLException ignore) {
+            }
+            throw new RuntimeException("Error opening session.  Cause: " + e);
+        }
     }
 }
