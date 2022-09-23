@@ -6,12 +6,8 @@ import java.util.Map;
 
 import com.xiaoxing.mybatis07.reflection.factory.ObjectFactory;
 import com.xiaoxing.mybatis07.reflection.property.PropertyTokenizer;
-import com.xiaoxing.mybatis07.reflection.wrapper.BeanWrapper;
-import com.xiaoxing.mybatis07.reflection.wrapper.CollectionWrapper;
-import com.xiaoxing.mybatis07.reflection.wrapper.ObjectWrapper;
-import com.xiaoxing.mybatis07.reflection.wrapper.ObjectWrapperFactory;
+import com.xiaoxing.mybatis07.reflection.wrapper.*;
 
-import cn.hutool.core.map.MapWrapper;
 
 /**
  * <p>
@@ -54,7 +50,8 @@ public class MetaObject {
         }
     }
 
-    public static MetaObject forObject(Object object, ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory) {
+    public static MetaObject forObject(Object object, ObjectFactory objectFactory,
+                    ObjectWrapperFactory objectWrapperFactory) {
         if (object == null) {
             // 处理一下null,将null包装起来
             return SystemMetaObject.NULL_META_OBJECT;
@@ -101,7 +98,7 @@ public class MetaObject {
         return objectWrapper.getGetterType(name);
     }
 
-    //是否有指定的setter
+    // 是否有指定的setter
     public boolean hasSetter(String name) {
         return objectWrapper.hasSetter(name);
     }
