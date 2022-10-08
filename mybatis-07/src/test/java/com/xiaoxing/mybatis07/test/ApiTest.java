@@ -4,17 +4,17 @@ package com.xiaoxing.mybatis07.test;
 import java.io.IOException;
 import java.io.Reader;
 
-import com.xiaoxing.mybatis07.io.Resources;
-import com.xiaoxing.mybatis07.test.po.User;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaoxing.mybatis07.io.Resources;
 import com.xiaoxing.mybatis07.session.SqlSession;
 import com.xiaoxing.mybatis07.session.SqlSessionFactory;
 import com.xiaoxing.mybatis07.session.SqlSessionFactoryBuilder;
 import com.xiaoxing.mybatis07.test.dao.IUserDao;
+import com.xiaoxing.mybatis07.test.po.User;
 
 /**
  * <p>
@@ -27,6 +27,7 @@ public class ApiTest {
 
 
     private Logger logger = LoggerFactory.getLogger(ApiTest.class);
+
 
 
     @Test
