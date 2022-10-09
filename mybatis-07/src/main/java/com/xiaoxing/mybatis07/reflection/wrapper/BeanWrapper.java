@@ -66,7 +66,7 @@ public class BeanWrapper extends BaseWrapper {
 
     @Override
     public String[] getSetterNames() {
-        return  metaClass.getSetterNames();
+        return metaClass.getSetterNames();
     }
 
     @Override
@@ -143,10 +143,13 @@ public class BeanWrapper extends BaseWrapper {
         Class<?> type = getSetterType(prop.getName());
         try {
             Object newObject = objectFactory.create(type);
-            metaValue = MetaObject.forObject(newObject, metaObject.getObjectFactory(), metaObject.getObjectWrapperFactory());
+            metaValue = MetaObject.forObject(newObject, metaObject.getObjectFactory(),
+                            metaObject.getObjectWrapperFactory());
             set(prop, newObject);
         } catch (Exception e) {
-            throw new RuntimeException("Cannot set value of property '" + name + "' because '" + name + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:" + e.toString(), e);
+            throw new RuntimeException("Cannot set value of property '" + name + "' because '" + name
+                            + "' is null and cannot be instantiated on instance of " + type.getName() + ". Cause:"
+                            + e.toString(), e);
         }
         return metaValue;
     }
@@ -174,7 +177,8 @@ public class BeanWrapper extends BaseWrapper {
         } catch (RuntimeException e) {
             throw e;
         } catch (Throwable t) {
-            throw new RuntimeException("Could not get property '" + prop.getName() + "' from " + object.getClass() + ".  Cause: " + t.toString(), t);
+            throw new RuntimeException("Could not get property '" + prop.getName() + "' from " + object.getClass()
+                            + ".  Cause: " + t.toString(), t);
         }
     }
 
@@ -185,7 +189,8 @@ public class BeanWrapper extends BaseWrapper {
             Object[] params = {value};
             method.invoke(object, params);
         } catch (Throwable t) {
-            throw new RuntimeException("Could not set property '" + prop.getName() + "' of '" + object.getClass() + "' with value '" + value + "' Cause: " + t.toString(), t);
+            throw new RuntimeException("Could not set property '" + prop.getName() + "' of '" + object.getClass()
+                            + "' with value '" + value + "' Cause: " + t.toString(), t);
         }
     }
 

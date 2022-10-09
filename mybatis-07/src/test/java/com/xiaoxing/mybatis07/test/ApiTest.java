@@ -31,9 +31,25 @@ public class ApiTest {
 
 
     @Test
+    public void test_SqlSessionFactory_07_02() throws IOException {
+        // 1. 从SqlSessionFactory中获取SqlSession
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+                        .build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        // 2. 获取映射器对象
+        IUserDao userDao = sqlSession.getMapper(IUserDao.class);
+
+        // 3. 测试验证
+        User user = userDao.queryUserInfoById(1L);
+        logger.info("测试结果：{}", JSON.toJSONString(user));
+    }
+
+    @Test
     public void test_SqlSessionFactory_07() throws IOException {
         // 1. 从SqlSessionFactory中获取SqlSession
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+                        .build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 2. 获取映射器对象
@@ -47,7 +63,8 @@ public class ApiTest {
     @Test
     public void test_SqlSessionFactory2() throws IOException {
         // 1. 从SqlSessionFactory中获取SqlSession
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+                        .build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 2. 获取映射器对象
@@ -60,14 +77,15 @@ public class ApiTest {
             User user = userDao.queryUserInfoById(1L);
             logger.info("测试结果：{}", JSON.toJSONString(user));
         }
-        System.out.println("耗时："+(System.currentTimeMillis()-l));
+        System.out.println("耗时：" + (System.currentTimeMillis() - l));
     }
 
 
     @Test
     public void test_SqlSessionFactory1() throws IOException {
         // 1. 从SqlSessionFactory中获取SqlSession
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder()
+                        .build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         // 2. 获取映射器对象
@@ -96,39 +114,41 @@ public class ApiTest {
         User res = userDao.queryUserInfoById(10001L);
         logger.info("测试结果：{}", res);
     }
-//    @Test
-//    public void test_MapperProxyFactory() {
-//
-//        MapperProxyFactory<IUserDao> factory = new MapperProxyFactory<>(IUserDao.class);
-//        HashMap<String, String> sqlSession = new HashMap<>();
-//
-//        sqlSession.put("com.xiaoxing.mybatis04.test.dao.IUserDao.queryUserName", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户姓名");
-//        sqlSession.put("com.xiaoxing.mybatis04.test.dao.IUserDao.queryUserAge", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户年龄");
-//
-//        IUserDao userDao = factory.newInstance(sqlSession);
-//
-//        String res = userDao.queryUserName("10001");
-//        logger.info("测试结果：{}", res);
-//
-//
-//    }
+    // @Test
+    // public void test_MapperProxyFactory() {
+    //
+    // MapperProxyFactory<IUserDao> factory = new MapperProxyFactory<>(IUserDao.class);
+    // HashMap<String, String> sqlSession = new HashMap<>();
+    //
+    // sqlSession.put("com.xiaoxing.mybatis04.test.dao.IUserDao.queryUserName", "模拟执行 Mapper.xml 中 SQL
+    // 语句的操作：查询用户姓名");
+    // sqlSession.put("com.xiaoxing.mybatis04.test.dao.IUserDao.queryUserAge", "模拟执行 Mapper.xml 中 SQL
+    // 语句的操作：查询用户年龄");
+    //
+    // IUserDao userDao = factory.newInstance(sqlSession);
+    //
+    // String res = userDao.queryUserName("10001");
+    // logger.info("测试结果：{}", res);
+    //
+    //
+    // }
 
-//    @Test
-//    public void test_MapperProxyFactory() {
-//        Configuration configuration = new Configuration();
-//        //1.注册mapper
-//        MapperRegistry mapperRegistry = new MapperRegistry(configuration);
-//        mapperRegistry.addMappers("com.xiaoxing.mybatis04.test.dao");
-//
-//        //2.从sqlSession工厂获取sqlSeSSION
-//        DefaultSqlSessionFactory defaultSqlSessionFactory = new DefaultSqlSessionFactory(mapperRegistry);
-//        SqlSession sqlSession = defaultSqlSessionFactory.openSqlSession();
-//
-//        // 3.获取映射器对象
-//        IUserDao dao = sqlSession.getMapper(IUserDao.class);
-//        String s = dao.queryUserName("10001");
-//        logger.info("测试结果：{}", s);
-//
-//
-//    }
+    // @Test
+    // public void test_MapperProxyFactory() {
+    // Configuration configuration = new Configuration();
+    // //1.注册mapper
+    // MapperRegistry mapperRegistry = new MapperRegistry(configuration);
+    // mapperRegistry.addMappers("com.xiaoxing.mybatis04.test.dao");
+    //
+    // //2.从sqlSession工厂获取sqlSeSSION
+    // DefaultSqlSessionFactory defaultSqlSessionFactory = new DefaultSqlSessionFactory(mapperRegistry);
+    // SqlSession sqlSession = defaultSqlSessionFactory.openSqlSession();
+    //
+    // // 3.获取映射器对象
+    // IUserDao dao = sqlSession.getMapper(IUserDao.class);
+    // String s = dao.queryUserName("10001");
+    // logger.info("测试结果：{}", s);
+    //
+    //
+    // }
 }
